@@ -14,10 +14,10 @@ class DishDetail extends Component {
     renderDish(dish) {
         return (
             <Card>
-                <CardImg top src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
+                <CardImg top src={dish.image} alt={dish.name} />
                 <CardBody>
-                    <CardTitle>{this.props.selectedDish.name}</CardTitle>
-                    <CardText>{this.props.selectedDish.description}</CardText>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
                 </CardBody>
             </Card>
         );
