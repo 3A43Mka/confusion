@@ -4,6 +4,7 @@ import {Navbar, NavbarBrand} from 'reactstrap';
 import Menu from './components/MenuComponent';
 import './App.css';
 import { DISHES } from './shared/dishes';
+import DishDetail from './components/DishDetailComponent';
 
 
 class  App extends Component {
@@ -22,9 +23,6 @@ class  App extends Component {
     this.setState({selectedDish: dish});
   }
 
-
-
-
   render(){
   return (
     <div>
@@ -34,6 +32,8 @@ class  App extends Component {
         </div>
       </Navbar>
       <Menu dishes={this.state.dishes} onDishSelect={this.onDishSelect} />
+    
+      <DishDetail selectedDish={this.state.selectedDish} />
     </div>
   );
   }
