@@ -12,8 +12,19 @@ class  App extends Component {
 
     this.state = {
       dishes: DISHES,
+      selectedDish: null
     };
+    this.onDishSelect = this.onDishSelect.bind(this);
   }
+
+  onDishSelect(dish) {
+    console.log(dish);
+    this.setState({selectedDish: dish});
+  }
+
+
+
+
   render(){
   return (
     <div>
@@ -22,7 +33,7 @@ class  App extends Component {
           <NavbarBrand href="/">Ristorate Con Fusion</NavbarBrand>
         </div>
       </Navbar>
-      <Menu dishes={this.state.dishes} />
+      <Menu dishes={this.state.dishes} onDishSelect={this.onDishSelect} />
     </div>
   );
   }
