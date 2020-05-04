@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Media, Button, Modal, ModalHeader, ModalBody, Row, Col, } from 'reactstrap';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem, Label
+    Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
+    Button, Modal, ModalHeader, ModalBody, Row, Col,
+    Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-
+import { NavLink, Link } from 'react-router-dom';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -29,6 +28,12 @@ class CommentForm extends Component {
             isModalOpen: !this.state.isModalOpen
         });
     }
+    // handleLogin(event) {
+    //     this.toggleModal();
+    //     alert("Username: " + this.username.value + " Password: " + this.password.value
+    //         + " Remember: " + this.remember.checked);
+    //     event.preventDefault();
+    // }
 
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
@@ -36,15 +41,18 @@ class CommentForm extends Component {
         // event.preventDefault();
     }
 
+
     render() {
         return (
             <React.Fragment>
+
                 <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
+
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-                            <Row className="form-group">
+                        <Row className="form-group">
                                 <Label htmlFor="rating" md={2}>Rating</Label>
                                 <Col md={10}>
                                     <Control.select model=".rating" name="rating"
@@ -99,75 +107,4 @@ class CommentForm extends Component {
     }
 }
 
-function RenderDish({ dish }) {
-    // console.log(dish);
-    return (
-        <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
-            <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
-    );
-}
-
-function RenderComments({ comments }) {
-    if (comments != null)
-        return (
-            <div>
-                <h4>Comments</h4>
-                <ul className="list-unstyled">
-                    {comments.map((comment) => {
-                        return (
-                            <li key={comment.id}>
-                                <p>{comment.comment}</p>
-                                <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <CommentForm></CommentForm>
-            </div>
-        );
-    else {
-        return (
-            <div>
-                <CommentForm></CommentForm>
-            </div>
-        );
-    }
-}
-
-const DishDetail = (props) => {
-    console.log(props.dish);
-    if (props.dish != null)
-        return (
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{props.dish.name}</h3>
-                        <hr />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderDish dish={props.dish} />
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
-                    </div>
-                </div>
-            </div>
-        );
-    else
-        return (
-            <div></div>
-        );
-}
-
-export default DishDetail;
+export default CommentForm;
